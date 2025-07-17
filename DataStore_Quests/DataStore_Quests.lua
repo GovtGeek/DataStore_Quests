@@ -685,7 +685,7 @@ DataStore:OnAddonLoaded(addonName, function()
 	thisCharacter.Rewards = thisCharacter.Rewards or {}
 	thisCharacter.Emissaries = thisCharacter.Emissaries or {}
 	
-	-- Quest titles cannot be retrieved with C_QuestLog in Cataclym
+	-- Quest titles cannot be retrieved with C_QuestLog in Cataclysm
 	if not isRetail then
 		DataStore_Quests_Titles = DataStore_Quests_Titles or {}
 		questTitles = DataStore_Quests_Titles
