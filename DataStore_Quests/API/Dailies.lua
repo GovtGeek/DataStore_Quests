@@ -25,6 +25,20 @@ local function InsertQuest(questID, title)
 	})		
 end
 
+-- *** Event Handlers ***
+local function OnQuestTurnedIn(event, questID, xpReward, moneyReward)
+	local questTitle = "Unknown Quest"
+	if isRetail then
+		questTitle = C_QuestLog.GetTitleForQuestID(questID)
+	else
+		questTitle = C_QuestLog.GetQuestInfo(questID)
+	end
+
+	if QuestIsDaily() then
+		InsertQuest(questID, questTitle)
+	end
+end
+
 -- ** Mixins **
 local function _GetDailiesHistory(characterID)
 	return dailies[characterID]
@@ -95,7 +109,9 @@ end)
 
 DataStore:OnPlayerLogin(function()
 	options = DataStore_Quests_Options
-	
+
+	addon:ListenTo("QUEST_TURNED_IN", OnQuestTurnedIn)
+
 	ClearExpiries()
 end)
 
